@@ -1,5 +1,6 @@
 package com.park;
 
+import com.github.pagehelper.PageHelper;
 import com.park.domain.AuthorAndBlog;
 import com.park.domain.BlogAndAuthor;
 import com.park.domain.BlogAndComment;
@@ -94,6 +95,7 @@ public class MyBatisTest {
 
 	/**
 	 * 一对多关联查询：一篇文章对应多条评论
+	 *
 	 * @throws IOException
 	 */
 	@Test
@@ -110,6 +112,7 @@ public class MyBatisTest {
 
 	/**
 	 * 多对多关联查询：作者的文章的评论
+	 *
 	 * @throws IOException
 	 */
 	@Test
@@ -118,11 +121,25 @@ public class MyBatisTest {
 		try {
 			BlogMapper mapper = session.getMapper(BlogMapper.class);
 			List<AuthorAndBlog> authors = mapper.selectAuthorWithBlog();
-			for (AuthorAndBlog author : authors){
+			for (AuthorAndBlog author : authors) {
 				System.out.println(author);
 			}
 		} finally {
 			session.close();
 		}
+	}
+
+	/**
+	 * 分页插件测试
+	 *
+	 * @throws IOException
+	 */
+	@Test
+	public void testPageHelper() throws IOException {
+		SqlSession session = sqlSessionFactory.openSession();
+		CardMapper cardMapper = session.getMapper(CardMapper.class);
+		PageHelper.startPage(1, 10);
+		List<Card> cards = cardMapper.selectAll();
+		System.out.println(cards);
 	}
 }

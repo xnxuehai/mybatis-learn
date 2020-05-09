@@ -36,7 +36,7 @@ public class SplitTypeHandler extends BaseTypeHandler {
 	@Override
 	public Object getNullableResult(ResultSet rs, String columnName) throws SQLException {
 		List<String> subjectList = new ArrayList<>();
-		System.out.println("columnName:" + columnName);
+//		System.out.println("columnName:" + columnName);
 		String string = rs.getString(columnName);
 		if (string != null && !"".equals(string)) {
 			String[] split = string.split(",");
@@ -44,8 +44,8 @@ public class SplitTypeHandler extends BaseTypeHandler {
 				subjectList.add(s);
 			}
 		}
-		System.out.println("getNullableResult 1 ");
-		System.out.println("subjectList" + subjectList);
+//		System.out.println("getNullableResult 1 ");
+//		System.out.println("subjectList" + subjectList);
 		return subjectList;
 	}
 

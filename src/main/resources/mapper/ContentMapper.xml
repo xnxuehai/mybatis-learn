@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.park.mapper.ContentMapper">
+    <cache/>
+
+    <resultMap id="BaseResultMap" type="com.park.domain.Content">
+        <id column="id" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="content" property="content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </resultMap>
+
+    <!--插入数据-->
+    <insert id="insert" parameterType="com.park.domain.Content">
+        insert into content (id,content) values (#{id},#{content})
+    </insert>
+
+    <!--批量添加数据-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into content (id,content) values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id},#{item.content})
+        </foreach>
+    </insert>
+
+    <!--按照 id 查询数据-->
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select id,content from content where id = #{id}
+    </select>
+</mapper>

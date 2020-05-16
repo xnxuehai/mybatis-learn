@@ -36,6 +36,7 @@
     <mappers>
         <mapper resource="mapper/BlogMapper.xml"/>
         <mapper resource="mapper/CardMapper.xml"/>
+        <mapper resource="mapper/ContentMapper.xml"/>
     </mappers>
 
 </configuration>

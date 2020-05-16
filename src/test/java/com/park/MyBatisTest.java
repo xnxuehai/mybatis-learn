@@ -1,12 +1,10 @@
 package com.park;
 
 import com.github.pagehelper.PageHelper;
-import com.park.domain.AuthorAndBlog;
-import com.park.domain.BlogAndAuthor;
-import com.park.domain.BlogAndComment;
-import com.park.domain.Card;
+import com.park.domain.*;
 import com.park.mapper.BlogMapper;
 import com.park.mapper.CardMapper;
+import com.park.mapper.ContentMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -34,32 +32,6 @@ public class MyBatisTest {
 		String source = "mybatis-config.xml";
 		InputStream resourceAsStream = Resources.getResourceAsStream(source);
 		sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-	}
-
-	@Test
-	public void BatchInsert() {
-		// 创建类型
-		List<String> cardType = new ArrayList<>();
-		cardType.add("Node");
-		cardType.add("English");
-
-		// 循环创建 10000 条数据
-		List<Card> cardList = new ArrayList<>();
-		for (int i = 2000; i < 12000; i++) {
-			Card card = new Card();
-			card.setId(i);
-			card.setCardType(cardType);
-			cardList.add(card);
-		}
-
-		SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
-		CardMapper mapper = sqlSession.getMapper(CardMapper.class);
-		long startTime = System.currentTimeMillis();
-		mapper.batchInsert(cardList);
-		sqlSession.commit();
-		sqlSession.close();
-		long endTime = System.currentTimeMillis();
-		System.out.println("耗时:" + (endTime - startTime));
 	}
 
 	/**

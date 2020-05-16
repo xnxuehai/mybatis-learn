@@ -40,8 +40,9 @@ public class MyPlugins implements Interceptor {
 		ResultHandler resultHandler = (ResultHandler) args[3];
 		Executor executor = (Executor) invocation.getTarget();
 
+		System.out.println("自定义插件 执行查询前进行拦截");
 		List<Object> query = executor.query(ms, parameter, rowBounds, resultHandler);
-
+		System.out.println("自定义插件 执行查询后进行拦截");
 		return query;
 	}
 
